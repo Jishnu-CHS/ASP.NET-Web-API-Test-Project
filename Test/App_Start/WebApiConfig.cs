@@ -1,5 +1,9 @@
 ﻿using Newtonsoft.Json.Serialization;
 using System.Web.Http;
+using Autofac;
+using Autofac.Integration.WebApi;
+using Test.Controllers;
+using Test.Repositories;
 
 namespace Test
 {
@@ -29,6 +33,19 @@ namespace Test
             //For converting data in Camel Case
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver();
+
+            var builder = new ContainerBuilder();
+            var c = GlobalConfiguration.Configuration;
+
+             
+            builder.RegisterType<TestController>().InstancePerRequest();
+            builder.RegisterType<CountryRepository>().As<ICountryRepository>().InstancePerRequest();
+
+            var container = builder.Build();
+            
+
+
+            c.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }
 }
