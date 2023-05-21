@@ -1,5 +1,5 @@
-﻿using System.Web.Http;
-using Test.Context;
+﻿using Newtonsoft.Json;
+using System.Web.Http;
 
 namespace Test
 {
@@ -8,7 +8,7 @@ namespace Test
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            System.Data.Entity.Database.SetInitializer(new DatabaseInitializer());
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }
     }
 }

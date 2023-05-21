@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using Test.Models;
@@ -55,7 +56,7 @@ namespace Test.Context
                 Name = "India",
                 State = stateInIndia
             };
-            context.Countries.Add(country);
+            context.Countries.AddOrUpdate(country);
             context.SaveChanges();
         }
     }
